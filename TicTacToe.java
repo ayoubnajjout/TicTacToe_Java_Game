@@ -41,12 +41,46 @@ public class TicTacToe {
         }
     }
 
-    public boolean isGameOver(){
+    public boolean isGameOver() {
+        // Check rows for a win
         for (int i = 0; i < ROWS; i++) {
             if (board[i][0].equals(board[i][1]) && board[i][0].equals(board[i][2]) && !board[i][0].matches(regex)) {
-                return true;
+                return true; // A row has the same symbols and is not empty
             }
         }
+
+        // Check columns for a win
+        for (int j = 0; j < COLS; j++) {
+            if (board[0][j].equals(board[1][j]) && board[0][j].equals(board[2][j]) && !board[0][j].matches(regex)) {
+                return true; // A column has the same symbols and is not empty
+            }
+        }
+
+        // Check diagonals for a win
+        if (board[0][0].equals(board[1][1]) && board[0][0].equals(board[2][2]) && !board[0][0].matches(regex)) {
+            return true;
+        }
+        if (board[0][2].equals(board[1][1]) && board[0][2].equals(board[2][0]) && !board[0][2].matches(regex)) {
+            return true;
+        }
+
+        boolean isFull = true;
+        for (String[] row : board) {
+            for (String cell : row) {
+                if (cell.matches(regex)) {
+                    isFull = false;
+                    break;
+                }
+            }
+            if (!isFull) {
+                break;
+            }
+        }
+        if (isFull) {
+            return true;
+        }
+
         return false;
     }
+
 }
